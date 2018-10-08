@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:18.04
 
 MAINTAINER Sven Warris (sven.warris@wur.nl)
 MAINTAINER Jennifer de Rue (jennifer.derue@wur.nl)
