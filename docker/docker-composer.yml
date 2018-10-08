@@ -1,0 +1,26 @@
+version: "3.6"
+services:
+  mongodb:
+    image: 'bitnami/mongodb:3.6'
+    labels:
+      kompose.service.type: nodeport
+    ports:
+      - "27017:27017"
+    volumes:
+      - 'mongodb_data:/bitnami'
+
+  php:
+    image: '7.2.10-apache-stretch' 
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    
