@@ -6,19 +6,42 @@ services:
       kompose.service.type: nodeport
     ports:
       - "27017:27017"
+    volumes:
+      - /media/sven/extData/sven/npec/mongodb:/bitnami
+    environment:
+      - MONGODB_DATABASE=diaphen 
+
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+       - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=azerty
+      - POSTGRES_USER=phis
+      - POSTGRES_DB=diaphen
+    volumes:
+       - /home/sven/git/phis/docker/postgres:/var/lib/postgresql/data
 
   php:
     image: php:7.1-apache
     ports:
        - "80:80"
-
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: example
+    volumes:
+       - /home/sven/git/phis/docker/apache/html:/var/www/html
   
   tomcat:
      image: 'tomcat:9.0'
      ports:
-        - "8080:8080"    
+        - "8080:8080"
+     volumes:
+        - /home/sven/git/phis/docker/tomcat:/usr/local/tomcat/conf/
+        - /home/sven/git/phis/docker/tomcat/webapp:/usr/local/tomcat/webapps/manager/META-INF
+        
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 9090:8080
+      
+        
