@@ -36,7 +36,8 @@ services:
         - "8080:8080"
      volumes:
         - /home/sven/git/phis/docker/tomcat:/usr/local/tomcat/conf/
-        - /home/sven/git/phis/docker/tomcat/webapp:/usr/local/tomcat/webapps/manager/META-INF
+        - /home/sven/git/phis/docker/tomcat/webapps:/usr/local/tomcat/webapps/
+        - /home/sven/git/phis/docker/tomcat/webapps/META-INF:/usr/local/tomcat/webapps/manager/META-INF
         
   adminer:
     image: adminer
@@ -44,4 +45,12 @@ services:
     ports:
       - 9090:8080
       
+  phis:
+      build: "./phis"
+      depends_on:
+         - adminer
+         - tomcat
+         - php
+         - postgres
+         - mongodb
         

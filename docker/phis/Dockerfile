@@ -2,6 +2,12 @@ FROM ubuntu:18.04
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 python3-dev python3-pip python3-setuptools git wget build-essential ssh less emacs libidn2-0 default-jdk zip sudo 
+
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get install -y tzdata
+RUN ln -fs /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
+RUN dpkg-reconfigure --frontend noninteractive tzdata
+RUN apt-get install -y postgresql-client
 	
 # Composer
 RUN apt-get install -y curl php-cli php-mbstring
@@ -28,9 +34,10 @@ WORKDIR /home/phis
 # Composer
 RUN composer global require "fxp/composer-asset-plugin:^1.2.0"
 
-# Robo3T
-RUN wget https://download.robomongo.org/1.2.1/linux/robo3t-1.2.1-linux-x86_64-3e50a65.tar.gz && \
-	tar zxvf robo3t-1.2.1-linux-x86_64-3e50a65.tar.gz && \
-	rm robo3t-1.2.1-linux-x86_64-3e50a65.tar.gz
+RUN wget "https://github.com/OpenSILEX/docs-community-dev/blob/master/docs/phis_st_dump.sql"
+RUN psql -h postgres -U phis diaphen < phis_st_dump.sql
+RUN rm phis_st_dump.sql
+
+
 
 	
