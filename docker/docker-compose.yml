@@ -1,53 +1,54 @@
 version: "3.5"
 services:
-  mongodb:
-    image: 'bitnami/mongodb:3.6'
-    labels:
-      kompose.service.type: nodeport
-    ports:
-      - "27017:27017"
-    volumes:
-      - /media/sven/extData/sven/npec/mongodb:/bitnami
-    environment:
-      - MONGODB_DATABASE=diaphen 
+   mongodb:
+      image: 'bitnami/mongodb:3.6'
+      labels:
+         kompose.service.type: nodeport
+      ports:
+         - "27017:27017"
+      volumes:
+         - /media/sven/extData/sven/npec/mongodb:/bitnami
+      environment:
+         - MONGODB_DATABASE=diaphen
 
-  postgres:
-    image: postgres
-    restart: always
-    ports:
-       - "5432:5432"
-    environment:
-      - POSTGRES_PASSWORD=azerty
-      - POSTGRES_USER=phis
-      - POSTGRES_DB=diaphen
-    volumes:
-       - /home/sven/git/phis/docker/postgres:/var/lib/postgresql/data
+   postgres:
+      image: postgres
+      restart: always
+      ports:
+         - "5432:5432"
+      environment:
+         - POSTGRES_PASSWORD=azerty
+         - POSTGRES_USER=phis
+         - POSTGRES_DB=diaphen
+      volumes:
+         - /home/sven/git/phis/docker/postgres:/var/lib/postgresql/data
 
-  php:
-    image: php:7.1-apache
-    ports:
-       - "80:80"
-    volumes:
-       - /home/sven/git/phis/docker/apache/html:/var/www/html
+   php:
+      image: php:7.1-apache
+      ports:
+         - "80:80"
+      volumes:
+         - /home/sven/git/phis/docker/apache/html:/var/www/html
   
-  tomcat:
-     image: 'tomcat:9.0'
-     ports:
-        - "8080:8080"
-     volumes:
-        - /home/sven/git/phis/docker/tomcat:/usr/local/tomcat/conf/
-        - /home/sven/git/phis/docker/tomcat/webapps:/usr/local/tomcat/webapps/
-        - /home/sven/git/phis/docker/tomcat/webapps/META-INF:/usr/local/tomcat/webapps/manager/META-INF
+   tomcat:
+      image: 'tomcat:9.0'
+      ports:
+         - "8080:8080"
+      volumes:
+         - /home/sven/git/phis/docker/tomcat:/usr/local/tomcat/conf/
+         - /home/sven/git/phis/docker/tomcat/webapps:/usr/local/tomcat/webapps/
+         - /home/sven/git/phis/docker/tomcat/webapps/META-INF:/usr/local/tomcat/webapps/manager/META-INF
+
         
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 9090:8080
+   adminer:
+      image: adminer
+      restart: always
+      ports:
+         - 9090:8080
       
-  phis:
+   phis:
       build: "./phis"
-      depends_on:
+      links:
          - adminer
          - tomcat
          - php
