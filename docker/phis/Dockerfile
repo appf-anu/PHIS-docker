@@ -34,7 +34,8 @@ WORKDIR /home/phis
 # Composer
 RUN composer global require "fxp/composer-asset-plugin:^1.2.0"
 
-RUN wget "https://github.com/OpenSILEX/docs-community-dev/blob/master/docs/phis_st_dump.sql"
+RUN wget "https://raw.githubusercontent.com/OpenSILEX/docs-community-dev/master/docs/phis_st_dump.sql"
+ARG PGPASSWORD=azerty
 RUN psql -h postgres -U phis diaphen < phis_st_dump.sql
 RUN rm phis_st_dump.sql
 

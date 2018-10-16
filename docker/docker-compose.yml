@@ -2,6 +2,8 @@ version: "3.5"
 services:
    mongodb:
       image: 'bitnami/mongodb:3.6'
+      networks:
+         - backend
       labels:
          kompose.service.type: nodeport
       ports:
@@ -12,7 +14,9 @@ services:
          - MONGODB_DATABASE=diaphen
 
    postgres:
-      image: postgres
+      image: 'mdillon/postgis'
+      networks:
+         - backend
       restart: always
       ports:
          - "5432:5432"
@@ -25,6 +29,9 @@ services:
 
    php:
       image: php:7.1-apache
+      networks:
+         - backend
+         - frontend
       ports:
          - "80:80"
       volumes:
@@ -32,6 +39,8 @@ services:
   
    tomcat:
       image: 'tomcat:9.0'
+      networks:
+         - backend      
       ports:
          - "8080:8080"
       volumes:
@@ -42,16 +51,13 @@ services:
         
    adminer:
       image: adminer
+      networks:
+         - backend
+         - frontend      
       restart: always
       ports:
          - 9090:8080
       
-   phis:
-      build: "./phis"
-      links:
-         - adminer
-         - tomcat
-         - php
-         - postgres
-         - mongodb
-        
+networks:
+   frontend:
+   backend:
