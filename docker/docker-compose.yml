@@ -1,4 +1,5 @@
 version: "3.5"
+
 services:
    mongodb:
       image: 'bitnami/mongodb:3.6'
@@ -9,7 +10,7 @@ services:
       ports:
          - "27017:27017"
       volumes:
-         - /media/sven/extData/sven/npec/mongodb:/bitnami
+         - mongodb_data:/bitnami
       environment:
          - MONGODB_DATABASE=diaphen
 
@@ -25,17 +26,17 @@ services:
          - POSTGRES_USER=phis
          - POSTGRES_DB=diaphen
       volumes:
-         - /home/sven/git/phis/docker/postgres:/var/lib/postgresql/data
+         - postgresql_data:/var/lib/postgresql/data
 
    php:
-      image: php:7.1-apache
+      build: ./apache
       networks:
          - backend
          - frontend
       ports:
          - "80:80"
       volumes:
-         - /home/sven/git/phis/docker/apache/html:/var/www/html
+         - web_data:/var/www/html
   
    tomcat:
       image: 'tomcat:9.0'
@@ -46,7 +47,7 @@ services:
       volumes:
          - /home/sven/git/phis/docker/tomcat:/usr/local/tomcat/conf/
          - /home/sven/git/phis/docker/tomcat/webapps:/usr/local/tomcat/webapps/
-         - /home/sven/git/phis/docker/tomcat/webapps/META-INF:/usr/local/tomcat/webapps/manager/META-INF
+#         - /home/sven/git/phis/docker/tomcat/webapps/META-INF:/usr/local/tomcat/webapps/manager/META-INF
 
         
    adminer:
@@ -61,3 +62,8 @@ services:
 networks:
    frontend:
    backend:
+
+volumes:
+   postgresql_data:
+   mongodb_data:
+   web_data:

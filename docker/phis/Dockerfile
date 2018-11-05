@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 # docker build --network=docker_frontend --network=docker_backend -t phis:latest .
-# docker run --network=docker_frontend --network=docker_backend --volume /home/sven/git/phis/docker/apache/html/:/var/www/html -i -t phis:latest  /bin/bash
+# docker run --network=docker_frontend --network=docker_backend --volume docker_web_data:/var/www/html -i -t phis:latest  /bin/bash
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 python3-dev python3-pip python3-setuptools git wget build-essential ssh less emacs libidn2-0 default-jdk zip unzip sudo 
@@ -12,7 +12,7 @@ RUN dpkg-reconfigure --frontend noninteractive tzdata
 RUN apt-get install -y postgresql-client
 	
 # Composer
-RUN apt-get install -y curl php-cli php-mbstring
+RUN apt-get install -y curl php-cli php-mbstring php-xml php-gd php-zip
 RUN curl -sS https://getcomposer.org/installer -o composer-setup.php
 RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
@@ -52,10 +52,13 @@ RUN cat rdf4j.sh | eclipse-rdf4j-2.4.0/bin/console.sh
 
 RUN git clone https://github.com/OpenSILEX/phis-webapp.git 
 
+
 # use docker run to open container
 # cd phis-webapp
 # composer update
+# sed -i s'/localhost/php/g' config/*.php
 # cd ..
-# cp -r phis-webapp /var/www/html
+# sudo cp -r phis-webapp /var/www/html
+# sudo chown -R www-data:www-data /var/www/html 
 
 	
