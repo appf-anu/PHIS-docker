@@ -56,6 +56,8 @@ RUN git clone https://github.com/OpenSILEX/phis-webapp.git
 # use docker run to open container
 # cd phis-webapp
 # composer update
+# sed -i s'/localhost:8084\/phis-ws\/rest/tomcat:8080/phis2ws/rest/g' config/*.php
+# sed -i s'/localhost:8084\/phis2ws/tomcat:8080/phis2ws/g' config/*.php
 # sed -i s'/localhost/php/g' config/*.php
 # cd ..
 # sudo cp -r phis-webapp /var/www/html
