@@ -45,10 +45,8 @@ services:
       ports:
          - "8080:8080"
       volumes:
-         - /home/sven/git/phis/docker/tomcat:/usr/local/tomcat/conf/
-         - /home/sven/git/phis/docker/tomcat/webapps:/usr/local/tomcat/webapps/
-#         - /home/sven/git/phis/docker/tomcat/webapps/META-INF:/usr/local/tomcat/webapps/manager/META-INF
-
+         - tomcat_conf:/usr/local/tomcat/conf/
+         - tomcat_webapps:/usr/local/tomcat/webapps/
         
    adminer:
       image: adminer
@@ -67,3 +65,5 @@ volumes:
    postgresql_data:
    mongodb_data:
    web_data:
+   tomcat_conf:
+   tomcat_webapps:
