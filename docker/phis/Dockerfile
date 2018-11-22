@@ -62,11 +62,11 @@ RUN mkdir -p /home/phis/tomcat
 RUN cp -r /home/phis/apache-tomcat-9.0.12/conf /home/phis/tomcat
 RUN cp -r /home/phis/apache-tomcat-9.0.12/webapps /home/phis/tomcat
 ADD tomcat-users.xml /home/phis/tomcat/conf
-ADD rdf-server.war /home/phis/tomcat/webapps
-ADD rdf-workbench.war /home/phis/tomcat/webapps
-ADD config.properties /home/phis/phis-ws/phis-ws/src/main/profiles/prod
-RUN cd /home/phis/phis-ws/phis-ws
-RUN mvn clean install -Pprod
+ADD rdf4j-server.war /home/phis/tomcat/webapps
+ADD rdf4j-workbench.war /home/phis/tomcat/webapps
+ADD pom.xml /home/phis/phis-ws/phis2-ws
+ADD config.properties /home/phis/phis-ws/phis2-ws/src/main/profiles/prod
+RUN cd /home/phis/phis-ws/phis2-ws && mvn clean install -Pprod
 
 # install 
 
@@ -79,5 +79,11 @@ RUN mvn clean install -Pprod
 # cd ..
 # sudo cp -r phis-webapp /var/www/html
 # sudo chown -R www-data:www-data /var/www/html 
+
+# sudo cp /home/phis/phis-ws/phis2-ws/target/phis2ws-v0.1.war /tomcat/webapps/phis2ws.war
+# sudo cp /home/phis/tomcat/webapps/*war /tomcat/webapps/
+# sudo cp /home/phis/tomcat/conf/tomcat-users.xml /tomcat/conf/
+
+# restart php and tomcat container
 
 	
