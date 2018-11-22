@@ -62,8 +62,10 @@ RUN mkdir -p /home/phis/tomcat
 RUN cp -r /home/phis/apache-tomcat-9.0.12/conf /home/phis/tomcat
 RUN cp -r /home/phis/apache-tomcat-9.0.12/webapps /home/phis/tomcat
 ADD tomcat-users.xml /home/phis/tomcat/conf
+
 ADD rdf4j-server.war /home/phis/tomcat/webapps
 ADD rdf4j-workbench.war /home/phis/tomcat/webapps
+ADD context.xml /home/phis/tomcat/webapps/manager/META-INF/
 ADD pom.xml /home/phis/phis-ws/phis2-ws
 ADD config.properties /home/phis/phis-ws/phis2-ws/src/main/profiles/prod
 RUN cd /home/phis/phis-ws/phis2-ws && mvn clean install -Pprod
