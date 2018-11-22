@@ -61,10 +61,10 @@ RUN tar zxvf apache-tomcat-9.0.12.tar.gz
 RUN mkdir -p /home/phis/tomcat
 RUN cp -r /home/phis/apache-tomcat-9.0.12/conf /home/phis/tomcat
 RUN cp -r /home/phis/apache-tomcat-9.0.12/webapps /home/phis/tomcat
-ADD tomcat/tomcat-users.xml /home/phis/tomcat/conf
-ADD tomcat/webapps/rdf-server.war /home/phis/tomcat/webapps
-ADD tomcat/webapps/rdf-workbench.war /home/phis/tomcat/webapps
-ADD tomcat/config.properties /home/phis/phis-ws/phis-ws/src/main/profiles/prod
+ADD tomcat-users.xml /home/phis/tomcat/conf
+ADD rdf-server.war /home/phis/tomcat/webapps
+ADD rdf-workbench.war /home/phis/tomcat/webapps
+ADD config.properties /home/phis/phis-ws/phis-ws/src/main/profiles/prod
 RUN cd /home/phis/phis-ws/phis-ws
 RUN mvn clean install -Pprod
 
