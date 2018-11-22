@@ -55,6 +55,17 @@ RUN cat rdf4j.sh | eclipse-rdf4j-2.4.0/bin/console.sh
 RUN git clone -b 2.6 https://github.com/OpenSILEX/phis-ws.git
 RUN git clone -b 2.6 https://github.com/OpenSILEX/phis-webapp.git 
 
+# prepare tomcat
+RUN wget http://apache.hippo.nl/tomcat/tomcat-9/v9.0.12/bin/apache-tomcat-9.0.12.tar.gz
+RUN tar zxvf apache-tomcat-9.0.12.tar.gz
+RUN cd apache-tomcat-9.0.12
+RUN cp -r conf/* /home/phis/tomcat/conf
+RUN cp -rf webapps /home/phis/tomcat
+ADD ../tomcat/tomcat-users.xml /home/phis/tomcat/conf
+ADD ../tomcat/webapps/rdf-server.war /home/phis/tomcat/webapps
+ADD ../tomcat/webapps/rdf-workbench.war /home/phis/tomcat/webapps
+
+
 
 # install 
 
