@@ -73,6 +73,9 @@ RUN cd /home/phis/phis-ws/phis2-ws && mvn clean install -Pprod
 # install 
 
 # use docker run to open container
+#
+# 
+#
 # cd phis-webapp
 # composer update
 # sed -i 's/localhost:8084\/phis-ws\/rest/tomcat:8080\/phis2ws\/rest/g' config/*.php
@@ -81,11 +84,13 @@ RUN cd /home/phis/phis-ws/phis2-ws && mvn clean install -Pprod
 # cd ..
 # sudo cp -r phis-webapp /var/www/html
 # sudo chown -R www-data:www-data /var/www/html 
-
+#
 # sudo cp /home/phis/phis-ws/phis2-ws/target/phis2ws-v0.1.war /tomcat/webapps/phis2ws.war
 # sudo cp /home/phis/tomcat/webapps/*war /tomcat/webapps/
 # sudo cp /home/phis/tomcat/conf/tomcat-users.xml /tomcat/conf/
+# sudo cp /home/phis/tomcat/webapps/manager/META-INF/context.xml /tomcat/webapps/manager/META-INF/
 
-# restart php and tomcat container
+# restart php and tomcat container and then run:
+# cat rdf4j.sh | eclipse-rdf4j-2.4.1/bin/console.sh
 
 	
