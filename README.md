@@ -34,7 +34,7 @@ docker run --network=docker_frontend --network=docker_backend \
 	-i -t phis:latest  /bin/bash
 ```
 
-From this shell runs these commands:
+From this shell run these commands:
 
 ```{bash}
 cd phis-webapp
