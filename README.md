@@ -21,6 +21,7 @@ To access the API, please add 'tomcat' as alias to localhost.
 Run docker build:
 
 ```{bash}
+cd phis
 docker build --network=docker_frontend --network=docker_backend -t phis:latest .
 ```
 
@@ -50,6 +51,7 @@ sudo cp /home/phis/phis-ws/phis2-ws/target/phis2ws-v0.1.war /tomcat/webapps/phis
 sudo cp /home/phis/tomcat/webapps/*war /tomcat/webapps/
 sudo cp /home/phis/tomcat/conf/tomcat-users.xml /tomcat/conf/
 sudo cp /home/phis/tomcat/webapps/manager/META-INF/context.xml /tomcat/webapps/manager/META-INF/
+sudo cp /home/phis/tomcat/conf/catalina.properties /tomcat/conf/catalina.properties
 ```
 
 Please provide tokens and password (*phis*) when requested.

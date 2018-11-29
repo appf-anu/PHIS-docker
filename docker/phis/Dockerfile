@@ -68,6 +68,7 @@ ADD rdf4j-workbench.war /home/phis/tomcat/webapps
 ADD context.xml /home/phis/tomcat/webapps/manager/META-INF/
 ADD pom.xml /home/phis/phis-ws/phis2-ws
 ADD config.properties /home/phis/phis-ws/phis2-ws/src/main/profiles/prod
+RUN echo "org.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true" >> /home/phis/tomcat/conf/catalina.properties
 RUN cd /home/phis/phis-ws/phis2-ws && mvn clean install -Pprod
 
 # install 
@@ -89,6 +90,7 @@ RUN cd /home/phis/phis-ws/phis2-ws && mvn clean install -Pprod
 # sudo cp /home/phis/tomcat/webapps/*war /tomcat/webapps/
 # sudo cp /home/phis/tomcat/conf/tomcat-users.xml /tomcat/conf/
 # sudo cp /home/phis/tomcat/webapps/manager/META-INF/context.xml /tomcat/webapps/manager/META-INF/
+# sudo cp /home/phis/tomcat/conf/catalina.properties /tomcat/conf/catalina.properties
 
 # restart php and tomcat container and then run:
 # cat rdf4j.sh | eclipse-rdf4j-2.4.1/bin/console.sh
