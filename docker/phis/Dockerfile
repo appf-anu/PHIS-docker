@@ -46,8 +46,10 @@ RUN psql -h postgres -U phis diaphen < phis_st_dump.sql
 #rdf4j
 RUN wget -O eclipse-rdf4j-2.4.1-sdk.zip "http://www.eclipse.org/downloads/download.php?file=/rdf4j/eclipse-rdf4j-2.4.1-sdk.zip&r=1"
 RUN /usr/bin/unzip eclipse-rdf4j-2.4.1-sdk.zip 
-RUN wget "https://raw.githubusercontent.com/OpenSILEX/docs-community-dev/master/docs/oa.rdf"
-RUN wget "https://raw.githubusercontent.com/OpenSILEX/docs-community-dev/master/docs/oepo-1.7.owl"
+#RUN wget "https://raw.githubusercontent.com/OpenSILEX/docs-community-dev/master/docs/oa.rdf"
+#RUN wget "https://raw.githubusercontent.com/OpenSILEX/docs-community-dev/master/docs/oepo-1.7.owl"
+RUN wget "https://opensilex.github.io/docs-community-dev/assets/oa.rdf"
+RUN wget "https://github.com/OpenSILEX/ontology-phis-oepo-field/blob/master/oepo.owl"
 ADD rdf4j.sh rdf4j.sh
 RUN cat rdf4j.sh | eclipse-rdf4j-2.4.1/bin/console.sh
 
@@ -56,11 +58,12 @@ RUN git clone -b 2.6 https://github.com/OpenSILEX/phis-ws.git
 RUN git clone -b 2.6 https://github.com/OpenSILEX/phis-webapp.git 
 
 # prepare tomcat
-RUN wget http://apache.hippo.nl/tomcat/tomcat-9/v9.0.12/bin/apache-tomcat-9.0.12.tar.gz
-RUN tar zxvf apache-tomcat-9.0.12.tar.gz
+#RUN wget http://apache.hippo.nl/tomcat/tomcat-9/v9.0.12/bin/apache-tomcat-9.0.12.tar.gz
+RUN wget http://apache.hippo.nl/tomcat/tomcat-9/v9.0.14/bin/apache-tomcat-9.0.14.tar.gz
+RUN tar zxvf apache-tomcat-9.0.14.tar.gz
 RUN mkdir -p /home/phis/tomcat
-RUN cp -r /home/phis/apache-tomcat-9.0.12/conf /home/phis/tomcat
-RUN cp -r /home/phis/apache-tomcat-9.0.12/webapps /home/phis/tomcat
+RUN cp -r /home/phis/apache-tomcat-9.0.14/conf /home/phis/tomcat
+RUN cp -r /home/phis/apache-tomcat-9.0.14/webapps /home/phis/tomcat
 ADD tomcat-users.xml /home/phis/tomcat/conf
 
 ADD rdf4j-server.war /home/phis/tomcat/webapps
