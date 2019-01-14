@@ -19,7 +19,7 @@ RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
 # CREATE USER
 #
-ARG USER_UID=1001
+ARG USER_UID=6666
 
 RUN echo USER_UID $USER_UID; \
     useradd --uid $USER_UID --create-home --shell /bin/bash phis && \
