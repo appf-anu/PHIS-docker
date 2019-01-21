@@ -34,9 +34,9 @@ services:
          - backend
          - frontend
       ports:
-         - "80:80"
+         - "7070:80"
       volumes:
-         - web_data:/var/www/html
+         - web_data:/var/www/html/
   
    tomcat:
       image: 'tomcat:9.0'
