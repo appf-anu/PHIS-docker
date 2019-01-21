@@ -70,5 +70,18 @@ cat rdf4j.sh | eclipse-rdf4j-2.4.1/bin/console.sh
 
 Now these services are available:
 
-- http://tomcat:8080/phis2ws
-- http://localhost/phis-webapp/ 
+For local hosts
+
+API - http://tomcat:8080/phis2ws
+Webapp - http://localhost/phis-webapp/ 
+
+For remote hosts
+
+API - http://<servername>:8080/phis2ws
+Webapp - http://<servername>/phis-webapp/
+
+
+-
+
+
+
