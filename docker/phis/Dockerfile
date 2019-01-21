@@ -19,7 +19,7 @@ RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 
 # CREATE USER
 #
-ARG USER_UID=6666
+ARG USER_UID=1001
 
 RUN echo USER_UID $USER_UID; \
     useradd --uid $USER_UID --create-home --shell /bin/bash phis && \
@@ -38,7 +38,7 @@ WORKDIR /home/phis
 RUN composer global require "fxp/composer-asset-plugin:^1.2.0"
 
 # postgres
-RUN wget "https://raw.githubusercontent.com/OpenSILEX/docs-community-dev/master/docs/phis_st_dump.sql"
+RUN wget "https://github.com/OpenSILEX/docs-community-dev/blob/master/docs/assets/phis_st_dump.sql"
 ARG PGPASSWORD=azerty
 RUN psql -h postgres -U phis diaphen < phis_st_dump.sql
 #RUN rm phis_st_dump.sql
