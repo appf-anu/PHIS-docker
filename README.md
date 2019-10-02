@@ -22,3 +22,9 @@ Once all services are up and running execute the following command the first tim
 docker exec -it --user root rdf4j /bin/bash /tmp/seed-data.sh
 docker exec -it postgres /bin/bash /tmp/seed-data.sh
 ```
+
+run 
+```
+wget "https://raw.githubusercontent.com/OpenSILEX/docs-community-dev/master/docs/assets/opensilex_st_dump.sql"
+./restore_postgres.sh opensilex_st_dump.sql
+```

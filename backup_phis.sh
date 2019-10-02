@@ -13,6 +13,7 @@ rm "$d.dump.gz"
 docker exec phis-rdf4j /bin/bash /tmp/backup-data.sh 
 docker cp "phis-rdf4j:/tmp/phis.nt" $d.nt
 docker exec -i phis-rdf4j rm "phis.nt"
+echo ""
 echo "rdf4j backup: "$(du -h "$d.nt")
 rsync -ah --partial --info=progress2 --chmod "D2700,F600" "$d.nt" "gdd801@r-dm.nci.org.au:/g/data/xe2/appf/database-backups/phis/rdf4j"
 rm "$d.nt"
