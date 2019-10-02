@@ -12,6 +12,7 @@ RUN wget "https://raw.githubusercontent.com/OpenSILEX/ontology-vocabularies/mast
 RUN wget "https://raw.githubusercontent.com/OpenSILEX/ontology-vocabularies/master/oeev.owl" 
 
 ADD seed-data.sh /tmp/seed-data.sh
+ADD backup-data.sh /tmp/backup-data.sh
 
 USER root
 

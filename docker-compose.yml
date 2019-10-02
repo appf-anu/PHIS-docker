@@ -11,11 +11,11 @@ services:
       ports:
          - "27017"
       volumes:
-         - phis-mongodb-data:/data/db
+         - mongodb-data:/data/db
 
    postgres:
       container_name: phis-postgres
-      build: ./postgres
+      image: mdillon/postgis:9.5-alpine
       networks:
          - phis-services
       ports:
@@ -25,7 +25,7 @@ services:
          - POSTGRES_USER=phis
          - POSTGRES_DB=phis
       volumes:
-         - phis-postgresql-data:/var/lib/postgresql/data
+         - postgresql-data:/var/lib/postgresql/data
 
    rdf4j:
       container_name: phis-rdf4j
@@ -35,7 +35,7 @@ services:
       ports:
          - "8080"
       volumes:
-         - phis-rdf4j-data:/var/rdf4j
+         - rdf4j-data:/var/rdf4j
       environment:
          - JAVA_OPTS='-Dorg.eclipse.rdf4j.appdata.basedir=/var/rdf4j/'
       
@@ -48,7 +48,7 @@ services:
       ports:
          - "80"
       volumes:
-         - phis-web-data:/var/www/html/
+         - web-data:/var/www/html/
       environment:
          - PHIS_WS_URL=http://phis-ws:8080/phis2ws
          - PHIS_WEBAPP_HOST=phis.traitcapture.org
@@ -80,8 +80,8 @@ services:
       ports:
          - "8080"
       volumes:
-         - phis-ws-docs:/home/phis/documents
-         - phis-ws-logs:/home/phis/logs
+         - ws-docs:/home/phis/documents
+         - ws-logs:/home/phis/logs
 
 networks:
    
@@ -93,9 +93,9 @@ networks:
       external: true
       name: phis-services
 volumes:
-   phis-postgresql-data:
-   phis-mongodb-data:
-   phis-rdf4j-data:
-   phis-web-data:
-   phis-ws-docs:
-   phis-ws-logs:
+   postgresql-data:
+   mongodb-data:
+   rdf4j-data:
+   web-data:
+   ws-docs:
+   ws-logs:
