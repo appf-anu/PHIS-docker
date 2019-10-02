@@ -2,22 +2,22 @@ version: "3.5"
 
 services:
    mongodb:
-      container_name: mongodb
-      image: 'bitnami/mongodb:latest'
+      container_name: phis-mongodb
+      image: 'mongo:4.2'
       networks:
-         - backend
+         - phis-services
       labels:
          kompose.service.type: nodeport
       ports:
          - "27017"
       volumes:
-         - mongodb_data:/bitnami
+         - phis-mongodb-data:/data/db
 
    postgres:
-      container_name: postgres
+      container_name: phis-postgres
       build: ./postgres
       networks:
-         - backend
+         - phis-services
       ports:
          - "5432"
       environment:
@@ -25,17 +25,17 @@ services:
          - POSTGRES_USER=phis
          - POSTGRES_DB=phis
       volumes:
-         - postgresql_data:/var/lib/postgresql/data
+         - phis-postgresql-data:/var/lib/postgresql/data
 
    rdf4j:
-      container_name: rdf4j
+      container_name: phis-rdf4j
       build: './rdf4j'
       networks:
-         - backend
+         - phis-services
       ports:
          - "8080"
       volumes:
-         - rdf4j_data:/var/rdf4j
+         - phis-rdf4j-data:/var/rdf4j
       environment:
          - JAVA_OPTS='-Dorg.eclipse.rdf4j.appdata.basedir=/var/rdf4j/'
       
@@ -43,12 +43,12 @@ services:
       container_name: phis-webapp
       build: ./phis-webapp
       networks:
-         - backend
-         - frontend
+         - phis-services
+         - web-network
       ports:
          - "80"
       volumes:
-         - web_data:/var/www/html/
+         - phis-web-data:/var/www/html/
       environment:
          - PHIS_WS_URL=http://phis-ws:8080/phis2ws
          - PHIS_WEBAPP_HOST=phis.traitcapture.org
@@ -69,10 +69,10 @@ services:
             PG_PORT: 5432
             RDF4J_HOST: rdf4j
             RDF4J_PORT: 8080
-            BASE_URI: http://phis.traitcapture.org/
+            BASE_URI: https://phis.traitcapture.org/
       networks:
-         - backend      
-         - frontend
+         - phis-services      
+         - web-network
       depends_on:
          - "rdf4j"
          - "mongodb"
@@ -80,17 +80,22 @@ services:
       ports:
          - "8080"
       volumes:
-         - ws_docs:/home/phis/documents
-         - ws_logs:/home/phis/logs
+         - phis-ws-docs:/home/phis/documents
+         - phis-ws-logs:/home/phis/logs
 
 networks:
-   frontend:
-   backend:
-
+   
+   
+   web-network:
+      external: true
+      name: web-network
+   phis-services:
+      external: true
+      name: phis-services
 volumes:
-   postgresql_data:
-   mongodb_data:
-   rdf4j_data:
-   web_data:
-   ws_docs:
-   ws_logs:
+   phis-postgresql-data:
+   phis-mongodb-data:
+   phis-rdf4j-data:
+   phis-web-data:
+   phis-ws-docs:
+   phis-ws-logs:
